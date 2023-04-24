@@ -390,7 +390,10 @@ class MergeData(object):
     @classmethod
     def _get_field_type(cls, instr):
         s = shlex.split(instr, posix=False)
-        return s[0], s[1:]
+        # For elements with no instr, otherwise this will throw an exception
+        if len(s) > 0:
+            return s[0], s[1:]
+        return None, []
 
     def make_data_field(self, parent, key=None, nested=False, instr=None, elements=None, **kwargs):
         """ MergeField factory method """
