@@ -112,10 +112,11 @@ class MergeField(object):
         if first_elem.tag == '{%(w)s}fldSimple' % NAMESPACES:
             # workaround for simple fields
             elem_to_add = first_elem.find('{%(w)s}r' % NAMESPACES)
-            if MAKE_TESTS_HAPPY:
-                elem_to_add.clear()
-            self.parent.replace(first_elem, elem_to_add)
-            self._elements_to_add[0] = elem_to_add
+            if elem_to_add is not None:
+                if MAKE_TESTS_HAPPY:
+                    elem_to_add.clear()
+                self.parent.replace(first_elem, elem_to_add)
+                self._elements_to_add[0] = elem_to_add
     
     def _format(self, value):
         options = self.instr_tokens[2:]
